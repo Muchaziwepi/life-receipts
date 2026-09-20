@@ -15,7 +15,7 @@ export default function App() {
     return (
       <div className="status" role="alert">
         <p>The receipts could not be loaded ({data.message}).</p>
-        <p>Check that the folder public/data contains chapters.json, moments.json, insights.json and meta.json.</p>
+        <p>Check that the folder public/data contains chapters.json, moments.json, insights.json, links.json and meta.json.</p>
       </div>
     );
   }

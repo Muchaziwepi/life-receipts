@@ -13,9 +13,9 @@ export function useData() {
         return r.json();
       });
 
-    Promise.all([get("chapters"), get("moments"), get("insights"), get("meta")])
-      .then(([chapters, moments, insights, meta]) => {
-        if (alive) setState({ status: "ready", chapters, moments, insights, meta });
+    Promise.all([get("chapters"), get("moments"), get("insights"), get("meta"), get("links")])
+      .then(([chapters, moments, insights, meta, links]) => {
+        if (alive) setState({ status: "ready", chapters, moments, insights, meta, links });
       })
       .catch((err) => alive && setState({ status: "error", message: err.message }));
 

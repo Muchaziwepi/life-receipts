@@ -37,11 +37,16 @@ export default function Hero({ chapters, meta }) {
         <span>{years} years</span>
       </p>
 
-      {peak && (
-        <a className="tear" href={`#chapter-${peak.id}`}>
-          <span aria-hidden="true">✂ </span>Jump to the loudest stretch
+      <p className="tears">
+        {peak && (
+          <a className="tear" href={`#chapter-${peak.id}`}>
+            <span aria-hidden="true">✂ </span>Jump to the loudest stretch
+          </a>
+        )}
+        <a className="tear" href="#connections">
+          <span aria-hidden="true">✂ </span>Skip to the connections
         </a>
-      )}
+      </p>
     </header>
   );
 }

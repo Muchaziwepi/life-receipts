@@ -1,13 +1,15 @@
 import { useMemo } from "react";
-import { useActiveChapter } from "../lib/useActiveChapter";
+import { useActiveSection } from "../lib/useActiveChapter";
 import ChapterNav from "./ChapterNav";
 import Hero from "./Hero";
 import ChapterSection from "./ChapterSection";
 import Patterns from "./Patterns";
 import FinePrint from "./FinePrint";
+import Connections from "./Connections";
 
-export default function Story({ chapters, moments, insights, meta }) {
-  const activeId = useActiveChapter(chapters.map((c) => c.id));
+export default function Story({ chapters, moments, insights, meta, links }) {
+  const sectionIds = useMemo(() => [...chapters.map((c) => `chapter-${c.id}`), "connections"], [chapters]);
+  const activeId = useActiveSection(sectionIds);
 
   const { momentsByChapter, notesByChapter, patterns } = useMemo(() => {
     const m = {};
@@ -28,22 +30,25 @@ export default function Story({ chapters, moments, insights, meta }) {
         Skip to the story
       </a>
       <ChapterNav chapters={chapters} activeId={activeId} />
-      <main className="desk" id="story">
-        <div className="roll">
-          <Hero chapters={chapters} meta={meta} />
-          {chapters.map((c, i) => (
-            <ChapterSection
-              key={c.id}
-              chapter={c}
-              position={i + 1}
-              total={chapters.length}
-              moments={momentsByChapter[c.id] ?? []}
-              notes={notesByChapter[c.id] ?? []}
-            />
-          ))}
-          <Patterns insights={patterns} />
-          <FinePrint meta={meta} />
+      <main id="story">
+        <div className="desk">
+          <div className="roll">
+            <Hero chapters={chapters} meta={meta} />
+            {chapters.map((c, i) => (
+              <ChapterSection
+                key={c.id}
+                chapter={c}
+                position={i + 1}
+                total={chapters.length}
+                moments={momentsByChapter[c.id] ?? []}
+                notes={notesByChapter[c.id] ?? []}
+              />
+            ))}
+            <Patterns insights={patterns} />
+            <FinePrint meta={meta} />
+          </div>
         </div>
+        <Connections chapters={chapters} moments={moments} links={links} insights={insights} />
       </main>
     </>
   );
